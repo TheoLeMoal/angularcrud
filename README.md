@@ -64,9 +64,9 @@ J'ai également ajouté un événement `click` pour lancer une fonction qui modi
 
 ## Explication du Code
 ### Fonction `register()`
-- Mise à Jour du Produit : La fonction vérifie si on est passé par la modale et ensuite si un produit est chargé et si celui-ci a un identifiant. Si ces conditions sont satisfaites, la fonction appelle le service `productsService` pour mettre à jour le produit via la méthode `patchProduct`.
+- Mise à Jour du Produit : La fonction vérifie si on est passé par la modale, ensuite elle vérifie si un produit est chargé et si celui-ci a un identifiant. Si ces conditions sont satisfaites, on modifie la variable qui permettai de savoir si on est passé par la modal à `false` et on appelle le service `productsService` pour mettre à jour le produit via la méthode `patchProduct`.
 `patchProduct` envoie une requête HTTP PATCH pour mettre à jour partiellement les détails d'un produit existant.
 
 ### Fonction `handleDeleteProduct()`
-- Suppression du Produit : La fonction commence par vérifier si un identifiant de produit à supprimer est défini et si on est passé par la modale et ensuite elle appelle le service `productsService` pour supprimer le produit via la méthode `deleteProduct`, en passant l'identifiant du produit à supprimer.
+- Suppression du Produit : La fonction commence par vérifier si un identifiant de produit à supprimer est défini et si on est passé par la modale une fois les conditions satisfaites on modifie la variable qui permettai de savoir si on est passé par la modal à `null` et ensuite on appelle le service `productsService` pour supprimer le produit via la méthode `deleteProduct`, en passant l'identifiant du produit à supprimer.
 `deleteProduct` envoie une requête HTTP DELETE pour supprimer un produit spécifique par son ID.
