@@ -60,13 +60,88 @@ De plus, j'ai ajouté le fichier JavaScript de Bootstrap dans angular.json pour 
         "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
     ]
 ```
-J'ai également ajouté un événement `click` pour lancer une fonction qui modifie une variable. Cette variable, si elle est `null` ou `false`, empêche la validation des modifications. Cela oblige l'utilisateur à passer par la modale pour confirmer les suppressions ou modifications.
+J'ai également ajouté un événement `click` pour lancer une méthode qui modifie une variable. Cette variable, si elle est `null` ou `false`, empêche la validation des modifications. Cela oblige l'utilisateur à passer par la modale pour confirmer les suppressions ou modifications.
 
 ## Explication du Code
-### Fonction `register()`
-- Mise à Jour du Produit : La fonction vérifie si on est passé par la modale, ensuite elle vérifie si un produit est chargé et si celui-ci a un identifiant. Si ces conditions sont satisfaites, on modifie la variable qui permettai de savoir si on est passé par la modal à `false` et on appelle le service `productsService` pour mettre à jour le produit via la méthode `patchProduct`.
+
+### EDIT
+
+```ts
+  confirmEdit() {
+    this.isSubmitted = true;
+  }
+
+  cancelEdit() {
+    this.isSubmitted = false;
+  }
+
+  register() {
+    if (this.productForm.valid && this.isSubmitted) {
+      const upProduct: NewProductInterface = this.productForm.value;
+      if (this.product && this.product.id) {
+        this.productsService.patchProduct(this.product.id, upProduct).subscribe({
+          next: (response) => {
+            this.productForm.reset();
+            this.isSubmitted = false;
+            this.router.navigate(['/get']);
+          },
+          error: (error) => {
+            console.error('Erreur lors de la modification du produit:', error);
+          },
+        });
+      }
+    } else {
+      console.log('Problème lors de l\'ajout du formulaire');
+    }
+  }
+```
+
+#### Méthode `confirmEdit()` 
+Lorsque cette méthode est exécutée, le composant considère que l'utilisateur a validé les modifications
+
+#### Méthode `cancelEdit()`
+Lorsque cette méthode est exécutée, le composant considère que l'utilisateur a annulé les modifications
+
+#### Méthode `register()`
+- Mise à Jour du Produit : La méthode vérifie si on est passé par la modale, ensuite elle vérifie si un produit est chargé et si celui-ci a un identifiant. Si ces conditions sont satisfaites, on modifie la variable qui permettai de savoir si on est passé par la modal à `false` et on appelle le service `productsService` pour mettre à jour le produit via la méthode `patchProduct`.
 `patchProduct` envoie une requête HTTP PATCH pour mettre à jour partiellement les détails d'un produit existant.
 
-### Fonction `handleDeleteProduct()`
-- Suppression du Produit : La fonction commence par vérifier si un identifiant de produit à supprimer est défini et si on est passé par la modale une fois les conditions satisfaites on modifie la variable qui permettai de savoir si on est passé par la modal à `null` et ensuite on appelle le service `productsService` pour supprimer le produit via la méthode `deleteProduct`, en passant l'identifiant du produit à supprimer.
+
+### DELETE
+
+```ts
+  confirmDeleteProduct(id: string) {
+    this.productIdToDelete = id;
+  }
+
+  cancelDelete() {
+    this.productIdToDelete = null;
+  }
+
+  handleDeleteProduct() {
+    if (this.productIdToDelete) {
+      this.productsService.deleteProduct(this.productIdToDelete).subscribe({
+        next: () => {
+          console.log('Produit supprimé avec succès');
+          this.products = this.products.filter(
+            (p) => p.id !== this.productIdToDelete
+          );
+          this.productIdToDelete = null;
+        },
+        error: (error) => {
+          console.error('Erreur lors de la suppression du produit :', error);
+        },
+      });
+    }
+  }
+```
+
+#### `confirmDeleteProduct(id: string)`
+Lorsque cette méthode est exécutée, le composant considère que l'utilisateur a validé la suppréssion.
+
+#### `cancelDelete()`
+Lorsque cette méthode est exécutée, le composant considère que l'utilisateur a annulé la suppréssion.
+
+#### Méthode `handleDeleteProduct()`
+- Suppression du Produit : La méthode commence par vérifier si un identifiant de produit à supprimer est défini et si on est passé par la modale une fois les conditions satisfaites on modifie la variable qui permettai de savoir si on est passé par la modal à `null` et ensuite on appelle le service `productsService` pour supprimer le produit via la méthode `deleteProduct`, en passant l'identifiant du produit à supprimer.
 `deleteProduct` envoie une requête HTTP DELETE pour supprimer un produit spécifique par son ID.

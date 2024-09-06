@@ -41,6 +41,10 @@ export class ProductGetComponent {
     this.productIdToDelete = id;
   }
 
+  cancelDelete() {
+    this.productIdToDelete = null;
+  }
+
   handleDeleteProduct() {
     if (this.productIdToDelete) {
       this.productsService.deleteProduct(this.productIdToDelete).subscribe({
@@ -56,9 +60,5 @@ export class ProductGetComponent {
         },
       });
     }
-  }
-
-  cancelDelete() {
-    this.productIdToDelete = null;
   }
 }
