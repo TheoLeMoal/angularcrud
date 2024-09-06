@@ -62,11 +62,11 @@ De plus, j'ai ajouté le fichier JavaScript de Bootstrap dans angular.json pour 
 ```
 J'ai également ajouté un événement `click` pour lancer une fonction qui modifie une variable. Cette variable, si elle est `null` ou `false`, empêche la validation des modifications. Cela oblige l'utilisateur à passer par la modale pour confirmer les suppressions ou modifications.
 
-##Explication du Code
-###Fonction `register()`
+## Explication du Code
+### Fonction `register()`
 - Mise à Jour du Produit : La fonction vérifie si on est passé par la modale et ensuite si un produit est chargé et si celui-ci a un identifiant. Si ces conditions sont satisfaites, la fonction appelle le service `productsService` pour mettre à jour le produit via la méthode `patchProduct`.
 `patchProduct` envoie une requête HTTP PATCH pour mettre à jour partiellement les détails d'un produit existant.
 
-###Fonction `handleDeleteProduct()`
+### Fonction `handleDeleteProduct()`
 - Suppression du Produit : La fonction commence par vérifier si un identifiant de produit à supprimer est défini et si on est passé par la modale et ensuite elle appelle le service `productsService` pour supprimer le produit via la méthode `deleteProduct`, en passant l'identifiant du produit à supprimer.
 `deleteProduct` envoie une requête HTTP DELETE pour supprimer un produit spécifique par son ID.
