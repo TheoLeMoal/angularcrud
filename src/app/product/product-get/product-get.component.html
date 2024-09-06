@@ -1,21 +1,23 @@
 <div class="container mt-4">
   <h2 class="mb-4">Liste des Produits</h2>
-  <div class="row row-cols-1 row-cols-md-2 rowcols-lg-3 g-4">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <div class="col" *ngFor="let product of products">
       <div class="card h-100">
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
-          <h6 class="card-subtitle mb-2 textmuted">ID : {{ product.id }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">ID : {{ product.id }}</h6>
           <p class="card-text">{{ product.description }}</p>
           <p class="card-text">
-            <strong>Prix : {{ product.price }} </strong>
+            <strong>Prix : {{ product.price }}</strong>
           </p>
         </div>
         <div class="card-footer d-flex gap-3">
-          <button class="btn btn-primary me2 w-100">Modifier</button>
+          <button class="btn btn-primary me-2 w-100" (click)="editProduct(product.id)">Modifier</button>
           <button
             class="btn btn-danger w-100"
-            (click)="handleDeleteProduct(product.id)"
+            (click)="confirmDeleteProduct(product.id)"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteConfirmationModal"
           >
             Supprimer
           </button>
@@ -24,69 +26,48 @@
     </div>
   </div>
 </div>
+
+<!-- Confirmation Modal -->
 <div
   class="modal fade"
-  id="exampleModalToggle"
-  aria-hidden="true"
-  arialabelledby="exampleModalToggleLabel"
+  id="deleteConfirmationModal"
   tabindex="-1"
+  aria-labelledby="deleteConfirmationModalLabel"
+  aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+        <h5 class="modal-title" id="deleteConfirmationModalLabel">
+          Confirmer la suppression
+        </h5>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          (click)="cancelDelete()"
         ></button>
       </div>
       <div class="modal-body">
-        Show a second modal and hide this one with the button below.
+        Êtes-vous sûr de vouloir supprimer ce produit ?
       </div>
       <div class="modal-footer">
         <button
-          class="btn btn-primary"
-          data-bstarget="#exampleModalToggle2"
-          data-bstoggle="modal"
+          type="button"
+          class="btn btn-secondary"
           data-bs-dismiss="modal"
+          (click)="cancelDelete()"
         >
-          Open second modal
+          Annuler
         </button>
-      </div>
-    </div>
-  </div>
-</div>
-<div
-  class="modal fade"
-  id="exampleModalToggle2"
-  aria-hidden="true"
-  arialabelledby="exampleModalToggleLabel2"
-  tabindex="-1"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
         <button
           type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        Hide this modal and show the first with the button below.
-      </div>
-      <div class="modal-footer">
-        <button
-          class="btn btn-primary"
-          data-bstarget="#exampleModalToggle"
-          data-bstoggle="modal"
+          class="btn btn-danger"
+          (click)="handleDeleteProduct()"
           data-bs-dismiss="modal"
         >
-          Back to first
+          Confirmer
         </button>
       </div>
     </div>

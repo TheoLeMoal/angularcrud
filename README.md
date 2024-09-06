@@ -2,26 +2,62 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
 
-## Development server
+## Introduction
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Cette application Angular est un projet CRUD (Create, Read, Update, Delete) permettant de gérer une liste de produits. Elle utilise Angular pour le frontend, json-server pour la gestion des produits, et Bootstrap 5 pour la mise en page.
 
-## Code scaffolding
+## Prérequis
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Avant de démarrer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
 
-## Build
+- Node.js
+- Angular CLI 
+- Json-server
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Running unit tests
+Clonez le dépôt sur votre machine locale :
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+git clone https://github.com/TheoLeMoal/angularcrud.git
+cd votre-repo
+npm i
+```
 
-## Running end-to-end tests
+## Backend 
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Pour lancer le serveur JSON, assurez-vous d'être dans le répertoire contenant le fichier db.json :
 
-## Further help
+```bash
+npx json-server db.json
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Serveur de développement
+Assurez-vous d'être à la racine du projet pour lancer le serveur Angular :
+
+```bash
+ng serve
+```
+Accédez à l'application sur « http://localhost:4200/ ».
+
+## Choix techniques
+
+- Bootstrap : Bootstrap a été intégré pour créer une interface utilisateur responsive et moderne, notamment pour les boutons, les cartes de produits et les modales.
+
+- Modale de confirmation : Pour la suppression et la modification des produits, une modale Bootstrap a été implémentée pour demander une confirmation à l'utilisateur. Cela permet d'éviter les suppressions ou modifications accidentelles.
+
+### Intégration des modales
+
+Lors de l'intégration des modales, j'ai rencontré quelques difficultés pour les faire fonctionner correctement. Pour résoudre ce problème, j'ai ajouté deux attributs au bouton :
+
+- data-bs-toggle="modal"
+- data-bs-target="#nom de la modale"
+
+De plus, j'ai ajouté le fichier JavaScript de Bootstrap dans angular.json pour s'assurer que les fonctionnalités JavaScript de Bootstrap soient correctement chargées :
+
+```json
+    "scripts": [
+        "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    ]
+```
+J'ai également ajouté un événement click pour lancer une fonction qui modifie une variable. Cette variable, si elle est null ou false, empêche la validation des modifications. Cela oblige l'utilisateur à passer par la modale pour confirmer les suppressions ou modifications.

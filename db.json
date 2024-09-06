@@ -1,16 +1,16 @@
 {
   "products": [
     {
-      "id": "2",
-      "name": "Vélo de ville Peugeot",
-      "description": "Un look d'un autre temps",
-      "price": 190
+      "id": "6686",
+      "name": "toto",
+      "description": "dgd",
+      "price": 5
     },
     {
-      "id": "5886",
-      "name": "Manger du pain",
-      "description": "Je mange du pain",
-      "price": 15
+      "id": "12a9",
+      "name": "5",
+      "description": "5",
+      "price": 5
     }
   ]
 }

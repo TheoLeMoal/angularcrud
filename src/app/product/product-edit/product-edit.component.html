@@ -1,13 +1,15 @@
+<!-- Formulaire pour modifier le produit -->
 <div class="row" *ngIf="product">
     <div class="col-sm-12 mt-4">
-        <form [formGroup]="productForm"(ngSubmit)="register()">
+        <form [formGroup]="productForm" (ngSubmit)="confirmEdit()">
+            <!-- Champs du formulaire -->
             <div class="row mb-3">
                 <div class="col-sm-2">
                     <label class="input-group-text">Nom : </label>
                 </div>
                 <div class="col-sm-10">
                     <input formControlName="name" class="form-control w-50" />
-                    <div *ngIf=" (productForm.get('name')?.invalid && (productForm.get('name')?.touched || productForm.get('name')?.dirty)) || (isSubmitted && productForm.get('name')?.invalid)">
+                    <div *ngIf="(productForm.get('name')?.invalid && (productForm.get('name')?.touched || productForm.get('name')?.dirty)) || (isSubmitted && productForm.get('name')?.invalid)">
                         <div *ngIf="productForm.get('name')?.errors?.['required']" class="alert alert-danger w-50">
                             Nom de produit requis
                         </div>
@@ -16,25 +18,72 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-2 col-form-label">
-                    <label class="input-grouptext">Description : </label>
+                    <label class="input-group-text">Description : </label>
                 </div>
                 <div class="col-sm-10">
                     <textarea formControlName="description" class="form-control w-50"></textarea>
                 </div>
             </div>
-                <div class="row mb-3">
-                    <div class="col-sm-2">
-                        <label class="input-group-text">Prix : </label>
-                    </div>
+            <div class="row mb-3">
+                <div class="col-sm-2">
+                    <label class="input-group-text">Prix : </label>
+                </div>
                 <div class="col-sm-10">
                     <input formControlName="price" class="form-control w-auto" type="number"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <button type="submit" class="btn btnsuccess w-100">Modifier le produit</button>
+                    <button type="submit" class="btn btn-success w-100" (click)="confirmEdit()" data-bs-toggle="modal" data-bs-target="#editConfirmationModal">Modifier le produit</button>
                 </div>
             </div>
         </form>
     </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div
+  class="modal fade"
+  id="editConfirmationModal"
+  tabindex="-1"
+  aria-labelledby="editConfirmationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editConfirmationModalLabel">
+          Confirmer la modification
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="cancelEdit()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir modifier ce produit ?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="cancelEdit()"
+        >
+          Annuler
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="register()"
+          data-bs-dismiss="modal"
+        >
+          Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
