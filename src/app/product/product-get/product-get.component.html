@@ -1,0 +1,94 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Liste des Produits</h2>
+  <div class="row row-cols-1 row-cols-md-2 rowcols-lg-3 g-4">
+    <div class="col" *ngFor="let product of products">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <h6 class="card-subtitle mb-2 textmuted">ID : {{ product.id }}</h6>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="card-text">
+            <strong>Prix : {{ product.price }} </strong>
+          </p>
+        </div>
+        <div class="card-footer d-flex gap-3">
+          <button class="btn btn-primary me2 w-100">Modifier</button>
+          <button
+            class="btn btn-danger w-100"
+            (click)="handleDeleteProduct(product.id)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="exampleModalToggle"
+  aria-hidden="true"
+  arialabelledby="exampleModalToggleLabel"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Show a second modal and hide this one with the button below.
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-primary"
+          data-bstarget="#exampleModalToggle2"
+          data-bstoggle="modal"
+          data-bs-dismiss="modal"
+        >
+          Open second modal
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="exampleModalToggle2"
+  aria-hidden="true"
+  arialabelledby="exampleModalToggleLabel2"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Hide this modal and show the first with the button below.
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-primary"
+          data-bstarget="#exampleModalToggle"
+          data-bstoggle="modal"
+          data-bs-dismiss="modal"
+        >
+          Back to first
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

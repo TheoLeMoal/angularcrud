@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "id": "2",
+      "name": "Vélo de ville Peugeot",
+      "description": "Un look d'un autre temps",
+      "price": 190
+    },
+    {
+      "id": "5886",
+      "name": "Manger du pain",
+      "description": "Je mange du pain",
+      "price": 15
+    }
+  ]
+}

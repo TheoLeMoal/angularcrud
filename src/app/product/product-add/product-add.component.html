@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-sm-12 mt-4">
+    <form [formGroup]="productForm" (ngSubmit)="register()">
+      <div class="row mb-3">
+        <div class="col-sm-2">
+          <label class="input-group-text">Nom : </label>
+        </div>
+        <div class="col-sm-10">
+          <input formControlName="name" class="form-control w-50" />
+          <div
+            *ngIf="
+              (productForm.get('name')?.invalid &&
+                (productForm.get('name')?.touched ||
+                  productForm.get('name')?.dirty)) ||
+              (isSubmitted && productForm.get('name')?.invalid)
+            "
+          >
+            <div
+              *ngIf="productForm.get('name')?.errors?.['required']"
+              class="alert alert-danger w-50"
+            >
+              Nom de produit requis
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-2 col-form-label">
+          <label class="input-group-text">Description : </label>
+        </div>
+        <div class="col-sm-10">
+          <textarea
+            formControlName="description"
+            class="form-control w-50"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-2">
+          <label class="input-group-text">Prix : </label>
+        </div>
+        <div class="col-sm-10">
+          <input
+            formControlName="price"
+            class="form-control w-auto"
+            type="number"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-success w-100">
+            Ajouter un produit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
